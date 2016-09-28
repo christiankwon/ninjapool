@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+    <title>Account</title>
+{% endblock %}
+
+
+{% block styles %}
+    <link type="text/css" rel="stylesheet" href="{% static 'account/css/styles.css' %}"  media="screen,projection"/>
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="{% static 'account/js/script.js' %}"></script>
+{% endblock %}
+
+
+{% block header %}
+    {{block.super}}
+{% endblock %}
+
+
+{% block content %}
+    {% if request.session.user_id %}
+        <div class="section">
+            <div class="row center-align">
+                <h1>Welcome back, {{ request.session.user_name }}</h1>
+            </div>
+
+            <div class="row center-align">
+                <a href="{% url 'account:logout'%}" class="btn">Logout</a>
+            </div>
+        </div>
+
+    {% else %}
+
+        <div class="section">
+            <div class="row">
+                <div class="loginform col s8 l6 offset-s2 offset-l3">{% include "./forms/login.html" %}</div>
+
+                <div class="divider hide-on-large-only col s10 offset-s1"></div>
+
+                <div class="registerform col s8 l6 offset-s2 offset-l3">{% include "./forms/register.html" %}</div>
+                <div class="col s8 l6 offset-s2 offset-l3" id="logintoregister">
+                    <p>Don't have an account?</p>
+                    <a>Register Here</a>
+                </div>
+            </div>
+        </div>
+
+    {% endif %}
+{% endblock %}
+
+
+{% block footer %}
+    {{block.super}}
+{% endblock %}

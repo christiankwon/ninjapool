@@ -1,0 +1,16 @@
+.registerform{
+	display: none;
+}
+
+#logintoregister p{
+	display: inline;
+	margin-right: 10px;
+}
+
+#backtologin{
+	float: left;
+}
+
+#backtologin img{
+	width: 35px;
+}

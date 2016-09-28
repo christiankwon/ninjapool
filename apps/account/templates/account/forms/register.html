@@ -1,0 +1,48 @@
+{% load static %}
+<form action="{% url 'account:register' %}" class="section" method="post">
+    {% csrf_token %}
+
+    <div class="row center-align">
+        <h3 id="populateRegister">Register</h3>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s6">
+            <input type="text" name="fname" id="register-fname">
+            <label for="register-fname">First Name:</label>
+        </div>
+
+        <div class="input-field col s6">
+            <input type="text" name="lname" id="register-lname">
+            <label for="register-lname">Last Name:</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s12">
+            <input type="text" name="email" id="register-email">
+            <label for="register-email">Email Address:</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s12">
+            <input type="password" name="pass" id="register-pass">
+            <label for="register-pass">Password:</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s12">
+            <input type="password" name="cpass" id="register-cpass">
+            <label for="register-cpass">Confirm Password:</label>
+        </div>
+    </div>
+
+    <div class="row center-align">
+        <div class="input-field col s12">
+            <a id="backtologin"><img src="{% static 'account/img/backarrow.png' %}" alt="Back"></a>
+            <button class="btn-large">Register</button>
+        </div>
+    </div>
+</form>
