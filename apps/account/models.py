@@ -2,6 +2,8 @@ from __future__ import unicode_literals
 from django.db import models
 import re, bcrypt
 
+from ..carpool.models import Location, Message, Wall, Carpool
+
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
 # Create your models here.
@@ -80,12 +82,15 @@ class UserManager(models.Manager):
             return (False, "Password is incorrect. Please try again.")
 
 
+    def removefromcarpool(self, userid):
+        pass
+
 class User(models.Model):
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
     email = models.EmailField()
     password = models.CharField(max_length=200)
+    carpool = models.ForeignKey(Carpool)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
     objects = UserManager()
