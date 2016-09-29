@@ -20,14 +20,3 @@ class Carpool(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = CarpoolManager()
-
-
-class Location(models.Model):
-    address = models.CharField(max_length=200)
-    city = models.CharField(max_length=200)
-    state = models.CharField(max_length=200)
-    zipcode = models.IntegerField()
-    user = models.OneToOneField(User)
-    route = models.ForeignKey(Carpool)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)

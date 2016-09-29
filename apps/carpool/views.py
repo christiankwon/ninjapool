@@ -4,3 +4,7 @@ from ..account.models import User
 # Create your views here.
 def index(request):
     return render(request, 'carpool/index.html')
+
+
+def register(request):
+    return render(request, 'carpool/register.html')
