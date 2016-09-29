@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'apps.wall',
     'apps.account',
     'apps.carpool',
     'django.contrib.admin',

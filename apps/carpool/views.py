@@ -12,3 +12,6 @@ def index(request):
 
 def checkin(request, checkinid):
 	return redirect(reverse('carpool:index'))
+
+def register(request):
+    return render(request, 'carpool/register.html')
