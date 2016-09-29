@@ -5,6 +5,8 @@ from .models import User
 
 # Create your views here.
 def index(request):
+    if 'user_id' in request.session:
+        return redirect(reverse('carpool:index'))
 
     return render(request, 'account/index.html')
 
