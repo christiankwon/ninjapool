@@ -6,7 +6,7 @@ from ..account.models import User, Car
 
 # Create your views here.
 def index(request):
-    return render(request, 'carpool/index.html')
+    return render(request, 'carpool/dashboard.html')
 
 
 def dashboard(request):
@@ -25,7 +25,7 @@ def dashboard(request):
 
 
 def checkin(request, checkinid):
-    return redirect(reverse('carpool:index'))
+    return redirect(reverse('carpool:dashboard'))
 
 
 def add_car(request):
@@ -45,3 +45,9 @@ def add_car(request):
             return render(request, 'carpool/add_car.html')
 
     return render(request, 'carpool/add_car.html')
+
+def join(request):
+    return redirect(reverse('carpool:nearby'))
+
+def create(request):
+    return redirect(reverse('carpool:dashboard'))
