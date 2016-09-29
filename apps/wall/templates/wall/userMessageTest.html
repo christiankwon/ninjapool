@@ -5,6 +5,9 @@
         <title>MESSAGE USER TEST</title>
     </head>
     <body>
+        {% for wall in walls %}
+            {{wall.id}}
+        {% endfor %}
         <h1>Other Users</h1>
         <table>
             <tr>
@@ -14,7 +17,7 @@
             {% for user in users %}
                 <tr>
                     <td>{{user.first_name}}</td>
-                    <td><a href="#">MESSAGE USER</a></td>
+                    <td><a href="{% url 'wall:wall_create' id=user.id %}">MESSAGE USER</a></td>
                 </tr>
             {% endfor %}
         </table>
