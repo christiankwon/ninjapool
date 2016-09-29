@@ -14,6 +14,10 @@ class UserManager(models.Manager):
         email = data['email']
         passw = data['pass']
         cpass = data['cpass']
+        address = data['address']
+        city = data['city']
+        state = data['state']
+        zcode = data['zip']
 
         if len(email) < 1:
             errors.append("An email must be provided.")
@@ -46,14 +50,35 @@ class UserManager(models.Manager):
         elif passw != cpass:
             errors.append("Passwords must match.")
 
+        if len(address) < 1:
+            errors.append("An address is required to register.")
+
+        if len(city) < 1:
+            errors.append("A city is required to register.")
+        elif not city.isalpha():
+            errors.append("A city can only have letters.")
+
+        if len(state) < 1:
+            errors.append("A state is required to register.")
+        elif not state.isalpha():
+            errors.append("A state can only have letters.")
+
+        if len(zcode) < 1:
+            errors.append("A zip code is required to register.")
+
         if not errors:
             passw_enc = bcrypt.hashpw(passw.encode(), bcrypt.gensalt())
             data = {
                 'first_name': fname,
                 'last_name': lname,
                 'email': email,
-                'password': passw_enc
+                'password': passw_enc,
+                'address': address,
+                'city': city,
+                'state': state,
+                'zipcode': zcode,
             }
+
             self.create(**data)
 
             return (True, "Account successfully created. Please log in now.")
@@ -89,6 +114,10 @@ class User(models.Model):
     email = models.EmailField()
     password = models.CharField(max_length=200)
     carpool_id = models.IntegerField(null=True)
+    address = models.CharField(max_length=200)
+    city = models.CharField(max_length=200)
+    state = models.CharField(max_length=200)
+    zipcode = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
