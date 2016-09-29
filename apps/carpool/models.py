@@ -1,7 +1,5 @@
 from __future__ import unicode_literals
-
 from django.db import models
-
 from ..account.models import User
 # from ..wall.models import Wall
 
@@ -9,7 +7,6 @@ from ..account.models import User
 class CarpoolManager(models.Manager):
     def newcarpool(self, user, room):
         this.create(driver=user, num_passengers=room)
-
 
 class Carpool(models.Model):
     num_passengers = models.IntegerField()
