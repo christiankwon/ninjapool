@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+    <title>Add Car | Carpool</title>
+{% endblock %}
+
+
+{% block styles %}
+    <link type="text/css" rel="stylesheet" href="{% static 'carpool/css/styles.css' %}"  media="screen,projection"/>
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="{% static 'carpool/js/script.js' %}"></script>
+{% endblock %}
+
+
+{% block header %}
+    {{block.super}}
+{% endblock %}
+
+
+{% block content %}
+    <form class="section" action="{% url 'carpool:add_car' %}" method="post">
+        {% csrf_token %}
+
+        <div class="container">
+            <h1 class="center-align">Add a Car</h1>
+
+            <div class="row">
+                <div class="input-field col s12 m6 offset-m3">
+                    <input type="text" name="make" id="make">
+                    <label for="make">Vehicle Make:</label>
+                </div>
+
+                <div class="input-field col s12 m6 offset-m3">
+                    <input type="text" name="model" id="model">
+                    <label for="model">Vehicle Model:</label>
+                </div>
+
+                <div class="input-field col s12 m6 offset-m3">
+                    <input type="text" name="year" id="year">
+                    <label for="year">Vehicle Year:</label>
+                </div>
+
+                <div class="input-field col s12 m6 offset-m3">
+                    <select name="seats" id="seats">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                    </select>
+                    <label for="seats">Available Seats:</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12 m6 offset-m3 center-align">
+                    <input type="submit" class="btn" value="Add">
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+
+{% block footer %}
+    {{block.super}}
+{% endblock %}

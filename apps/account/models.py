@@ -105,8 +105,23 @@ class UserManager(models.Manager):
             return (False, "Password is incorrect. Please try again.")
 
 
-    def removefromcarpool(self, userid):
-        pass
+    def new_car(self, data, user_id):
+        data = {
+            'owner': self.get(id=user_id),
+            'make': data['make'],
+            'model': data['model'],
+            'year': data['year'],
+            'seats': data['seats'],
+        }
+
+        try:
+            newcar = Car.objects.create(**data)
+            print newcar
+            return (True, "Successfully created a car!", newcar)
+
+        except:
+            return (False, "Something went wrong.")
+
 
 class User(models.Model):
     first_name = models.CharField(max_length=200)
@@ -118,6 +133,17 @@ class User(models.Model):
     city = models.CharField(max_length=200)
     state = models.CharField(max_length=200)
     zipcode = models.IntegerField()
+    arrive_by = models.TimeField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
+
+
+class Car(models.Model):
+    make = models.CharField(max_length=200)
+    model = models.CharField(max_length=200)
+    year = models.IntegerField()
+    seats = models.IntegerField()
+    owner = models.ForeignKey(User)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

@@ -1,0 +1,68 @@
+<h2>Ride Schedule</h2>
+
+{% if carpool.driver.id == request.session.user_id%}
+    {% if carpool.driver.id == request.session.user_id %}
+        <p>You're the driver for this Carpool!</p>
+    {% else %}
+        <p>Your driver is {{carpool.driver.fname}}.</p>
+    {% endif %}
+    <table>
+        {% for stop in stops %}
+        <tr>
+            <td>{{stop.user.fname}}</td>
+        </tr>
+        <tr>
+            <td>Goal Departure:</td>
+            <td>{{stop.planned}}</td>
+        </tr>
+        <tr>
+            <td>Actual Departure:</td>
+            <td>{{stop.reality}}</td>
+            {% if stop.user.id == request.session.user_id %}
+                <td>
+                    <a href="{% url 'carpool:checkin' checkinid=request.session.user_id %}">Departed!</a>
+                </td>
+            {% endif %}
+
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class="section">
+        <div class="container">
+            <h4>My Cars</h4>
+
+            {% for car in cars %}
+                <p>{{car.name}}</p>
+                <p>Seats: {{car.seats}}</p>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+    <h2>Chat</h2>
+    <div id="chats">
+        {% for message in messages %}
+            <h3>{{message.user.fname}}</h3>
+            <p>{{message.message}}</p>
+            <p>{{message.created_at}}</p>
+        {% endfor %}
+    </div>
+    <form action="{#% url 'wall:newmessage' id=request.session.user_id %#}" method="post">
+        <input type="text" name="message">
+        <input type="submit" class="btn" value="Send">
+    </form>
+
+{% else %}
+    {{car}}
+    <a href="{% url 'carpool:join' %}" class="btn">Join a Carpool</a>
+    <a href="
+    {% if car %}
+        {% url 'carpool:create' %}
+    {% else %}
+        {% url 'carpool:add_car' %}
+    {% endif %}
+    " class="btn">Start a Carpool</a>
+
+{% endif %}
