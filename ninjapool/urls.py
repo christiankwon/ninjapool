@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 
 urlpatterns = [
-    url(r'^account/', include('apps.account.urls', namespace="account")),
     url(r'^', include('apps.carpool.urls', namespace="carpool")),
+    url(r'^account/', include('apps.account.urls', namespace="account")),
+    url(r'^wall/', include('apps.wall.urls', namespace="wall")),
 ]

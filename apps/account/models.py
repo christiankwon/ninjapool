@@ -88,7 +88,7 @@ class User(models.Model):
     last_name = models.CharField(max_length=200)
     email = models.EmailField()
     password = models.CharField(max_length=200)
-    carpool_id = models.IntegerField()
+    carpool_id = models.IntegerField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
