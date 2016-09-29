@@ -23,59 +23,7 @@
 
 
 {% block content %}
-    <form class="section" action="{% url 'carpool:register' %}" method="post">
-        {% csrf_token %}
-        <div class="container">
-            <h1 class="center-align">Become a driver</h1>
 
-            <div class="row">
-                <div class="input-field col s12 m6 offset-m3">
-                    <input type="text" name="start" id="start">
-                    <label for="start">Starting Location:</label>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="input-field col s12 m6 offset-m3">
-                    <input type="number" name="seats" id="seats" min="0">
-                    <label for="seats">How many spots are available in your car:</label>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="input-field col s12 m6 offset-m3">
-                    <select name="distance" id="distance">
-                        <option value="" disabled selected>Choose a distance...</option>
-                        <option value="1">1 miles</option>
-                        <option value="5">5 miles</option>
-                        <option value="10">10 miles</option>
-                        <option value="15">15 miles</option>
-                    </select>
-                    <label for="distance">How far are you willing to go to pick up someone:</label>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="input-field col s12 m6 offset-m3">
-                    <input type="text" name="arrive" id="arrive">
-                    <label for="arrive">What time do you want to arrive by:</label>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="input-field col s12 m6 offset-m3">
-                    <input type="text" name="leave" id="leave">
-                    <label for="leave">What time do you plan to leave the Dojo:</label>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="input-field col s12 m6 offset-m3 center-align">
-                    <input type="submit" class="btn" value="Register">
-                </div>
-            </div>
-        </div>
-    </form>
 {% endblock %}
 
 

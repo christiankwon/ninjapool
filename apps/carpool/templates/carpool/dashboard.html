@@ -26,6 +26,20 @@
         </tr>
         {% endfor %}
     </table>
+
+    <div class="section">
+        <div class="container">
+            <h4>My Cars</h4>
+
+            {% for car in cars %}
+                <p>{{car.name}}</p>
+                <p>Seats: {{car.seats}}</p>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
     <h2>Chat</h2>
     <div id="chats">
         {% for message in messages %}

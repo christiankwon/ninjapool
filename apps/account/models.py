@@ -108,6 +108,22 @@ class UserManager(models.Manager):
     def removefromcarpool(self, userid):
         pass
 
+
+    def new_car(self, data, user_id):
+        data = {
+            'owner': self.get(id=user_id),
+            'name': data['name'],
+            'seats': data['seats'],
+        }
+
+        try:
+            newcar = Car.objects.create(**data)
+            return (True, "Successfully created a car!", newcar)
+
+        except:
+            return (False, "Something went wrong.")
+
+
 class User(models.Model):
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
@@ -124,7 +140,7 @@ class User(models.Model):
     objects = UserManager()
 
 
-class Car(models.Manager):
+class Car(models.Model):
     name = models.CharField(max_length=200)
     seats = models.IntegerField()
     owner = models.ForeignKey(User)
