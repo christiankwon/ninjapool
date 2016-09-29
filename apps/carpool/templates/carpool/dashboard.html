@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+    <title>Carpool</title>
+{% endblock %}
+
+
+{% block styles %}
+    <link type="text/css" rel="stylesheet" href="{% static 'carpool/css/styles.css' %}"  media="screen,projection"/>
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="{% static 'carpool/js/script.js' %}"></script>
+{% endblock %}
+
+
+{% block header %}
+    {{block.super}}
+{% endblock %}
+
+
+{% block content %}
+	<h2>Ride Schedule</h2>
+	{% if carpool.driver.id=request.session['user_id'] %}
+		<p>You're the driver for this Carpool!</p>
+	{% else %}
+		<p>Your driver is {{carpool.driver.fname}}.</p>
+	{% endif %}
+	<table>
+		{% for stop in stops %}
+		<tr>
+			<td>{{stop.user.fname}}</td>
+		</tr>
+		<tr>
+			<td>Goal Departure:</td>
+			<td>{{stop.planned}}</td>
+		</tr>
+		<tr>
+			<td>Actual Departure:</td>
+			<td>{{stop.reality}}</td>
+			{% if stop.user.id=request.session['user_id'] %}
+				<td>
+					<a href="{% url 'carpool:checkin' checkinid=request.session['user_id'] %}">Departed!</a>
+				</td>
+			{% endif %}
+			
+		</tr>
+		{% endfor %}
+	</table>
+	<h2>Chat</h2>
+	<div id="chats">
+		{% for message in messages %}
+			<h3>{{message.user.fname}}</h3>
+			<p>{{message.message}}</p>
+			<p>{{message.created_at}}</p>
+		{% endfor %}
+	</div>
+	<form action="{% url 'wall:newmessage' id=request.session['user_id'] %}" method="post">
+		<input type="text" name="message">
+		<input type="submit" class="btn" value="Send">
+	</form>
+
+{% endblock %}
+
+
+{% block footer %}
+    {{block.super}}
+{% endblock %}
