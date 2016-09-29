@@ -17,10 +17,13 @@ def dashboard(request):
     user = User.objects.get(id=request.session['user_id'])
     stops = User.objects.filter(carpool_id=user.carpool_id)
     carpool = models.Carpool.objects.filter(id=user.carpool_id)
-    cars = Car.objects.filter(owner=user)
-
-    context = {'user':user, 'stops':stops, 'carpool':carpool, 'cars':cars}
-
+    
+    try:
+        car = Car.objects.get(owner=user)
+        context = {'user':user, 'stops':stops, 'carpool':carpool, 'car':car}
+    except:
+        context = {'user':user, 'stops':stops, 'carpool':carpool}
+    
     return render(request, 'carpool/index.html', context)
 
 
@@ -47,7 +50,13 @@ def add_car(request):
     return render(request, 'carpool/add_car.html')
 
 def join(request):
-    return redirect(reverse('carpool:nearby'))
+        return redirect(reverse('carpool:nearby'))
 
-def create(request):
-    return redirect(reverse('carpool:dashboard'))
+def creator(request):
+    try:
+        user = User.objects.get(id=request.session['user_id'])
+        car = Car.objects.get(owner=user)
+        Carpool.objects.new_carpool(user, car)
+        return redirect(reverse('carpool:dashboard'))
+    except: 
+        return redirect(reverse('carpool:add_car'))
