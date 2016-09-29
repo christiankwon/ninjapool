@@ -118,6 +118,15 @@ class User(models.Model):
     city = models.CharField(max_length=200)
     state = models.CharField(max_length=200)
     zipcode = models.IntegerField()
+    arrive_by = models.TimeField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
+
+
+class Car(models.Manager):
+    name = models.CharField(max_length=200)
+    seats = models.IntegerField()
+    owner = models.ForeignKey(User)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
-from ..account.models import User
+from ..account.models import User, Car
 from ..wall.models import Wall
 
 # Create your models here.
@@ -30,10 +30,6 @@ class CarpoolManager(models.Manager):
 
 
 class Carpool(models.Model):
-    num_passengers = models.IntegerField()
-    arrival_time = models.TimeField()
-    leave_time = models.TimeField()
-    max_extra_distance = models.IntegerField()
     driver = models.OneToOneField(User)
     wall = models.OneToOneField(Wall)
     created_at = models.DateTimeField(auto_now_add=True)

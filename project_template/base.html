@@ -18,7 +18,11 @@
     {% block header %}
         <header class="section">
             <a href="{% url 'carpool:index' %}">Home</a>
-            <a href="{% url 'carpool:register' %}">Become a driver</a>
+
+            {% if request.session.user_id %}
+                <a href="{% url 'carpool:register' %}">Become a driver</a>
+                <a href="{% url 'account:logout' %}" class="right">log out</a>
+            {% endif %}
         </header>
     {% endblock %}
 
