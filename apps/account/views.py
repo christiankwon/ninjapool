@@ -32,11 +32,12 @@ def login(request):
             request.session['user_id'] = response[2].id
             request.session['user_name'] = response[2].first_name + ' ' + response[2].last_name
             messages.success(request, response[1])
+            return redirect(reverse('carpool:index'))
 
         else:
             messages.error(request, response[1])
+            return redirect(reverse('account:index'))
 
-    return redirect(reverse('account:index'))
 
 
 def logout(request):
