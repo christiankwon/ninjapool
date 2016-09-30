@@ -19,14 +19,17 @@ def dashboard(request):
         return redirect(reverse('account:index'))
 
     user = User.objects.get(id=request.session['user_id'])
-    stops = User.objects.filter(carpool_id=user.carpool_id)
-    carpool = models.Carpool.objects.filter(id=user.carpool_id)
+    context = {'user':user}
+    
+    if models.Carpool.objects.filter(id=user.carpool_id):
+        stops = User.objects.filter(carpool_id=user.carpool_id)    
 
-    try:
-        car = Car.objects.get(owner=user)
-        context = {'user':user, 'stops':stops, 'carpool':carpool, 'car':car}
-    except:
-        context = {'user':user, 'stops':stops, 'carpool':carpool}
+        try:
+            carpool = models.Carpool.objects.get(id=user.carpool_id)
+            car = Car.objects.get(owner=user)
+            context = {'user':user, 'stops':stops, 'carpool':carpool, 'car':car}
+        except:
+            pass
 
     return render(request, 'carpool/index.html', context)
 
@@ -66,10 +69,10 @@ def add_car(request):
             messages.success(request, response[1])
             try:
                 user = User.objects.get(id=user_id)
-                carpool = carpool.get(id=user.carpool_id)
+                carpool = models.Carpool.objects.get(id=user.carpool_id)
                 return redirect(reverse('carpool:dashboard'))
             except:
-                return redirect(reverse('carpool:new_carpool_router'))
+                return redirect(reverse('carpool:new_carpool'))
 
         else:
             messages.error(request, response[1])
@@ -77,16 +80,11 @@ def add_car(request):
     return render(request, 'carpool/add_car.html')
 
 
-def join(request):
-    return redirect(reverse('carpool:nearby'))
-
-
 def new_carpool(request):
     try:
         user = User.objects.get(id=request.session['user_id'])
         car = Car.objects.get(owner=user)
-        Carpool.objects.new_carpool(user, car)
-        return redirect(reverse('carpool:dashboard'))
+        return render(request,'carpool/new_carpool.html', {'user':user, 'car':car})
     except:
         return redirect(reverse('carpool:add_car'))
 
@@ -98,6 +96,11 @@ def new_carpool_create(request):
     models.Carpool.objects.new_carpool(data)
     return redirect(reverse('carpool:dashboard'))
 
+def leave(request):
+    models.Carpool.objects.leave_carpool(request.session['user_id'])
+    return redirect(reverse('carpool:dashboard'))
 
-def join(request):
-        return redirect(reverse('carpool:nearby'))
+def join(request, carpool_id):
+    user = User.objects.get(id=request.session['user_id'])
+    models.Carpool.objects.join_carpool(user, carpool_id)
+    return redirect(reverse('carpool:dashboard'))

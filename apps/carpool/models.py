@@ -24,9 +24,21 @@ class CarpoolManager(models.Manager):
         user.carpool_id = create.id
         user.save()
 
-        create.delete()
-
         return (True, create)
+
+    def leave_carpool(self, user_id):
+        user = User.objects.get(id=user_id)
+        carpool = self.get(id=user.carpool_id)
+        user.carpool_id=0
+        user.save()
+        if carpool.driver == user:
+            carpool.delete()
+
+        return True
+
+    def join_carpool(self, user, carpool_id):
+        user.carpool_id=carpool_id
+        user.save()
 
 
 class Carpool(models.Model):

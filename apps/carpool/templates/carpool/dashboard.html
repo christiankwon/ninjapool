@@ -1,15 +1,15 @@
 <h2>Ride Schedule</h2>
 
-{% if carpool.driver.id == request.session.user_id%}
+{% if user.carpool_id > 0 %}
     {% if carpool.driver.id == request.session.user_id %}
         <p>You're the driver for this Carpool!</p>
     {% else %}
-        <p>Your driver is {{carpool.driver.fname}}.</p>
+        <p>Your driver is {{carpool.driver.first_name}}.</p>
     {% endif %}
     <table>
         {% for stop in stops %}
         <tr>
-            <td>{{stop.user.fname}}</td>
+            <td>{{stop.user.first_name}}</td>
         </tr>
         <tr>
             <td>Goal Departure:</td>
@@ -27,19 +27,20 @@
         </tr>
         {% endfor %}
     </table>
+    <a href="{% url 'carpool:leave' %}" class="btn">Leave Carpool</a>
 
     <div class="section">
         <div class="container">
             <h4>My Cars</h4>
 
-            {% for car in cars %}
-                <p>{{car.name}}</p>
-                <p>Seats: {{car.seats}}</p>
-            {% endfor %}
+            {#% for car in cars %#}
+                <div class="car">
+                    <p>{{car.make}} {{car.model}}</p>
+                    <p>Seats: {{car.seats}}</p>
+                </div>
+            {#% endfor %#}
         </div>
     </div>
-
-
 
     <h2>Chat</h2>
     <div id="chats">
@@ -56,7 +57,7 @@
 
 {% else %}
     {{car}}
-    <a href="{% url 'carpool:join' %}" class="btn">Join a Carpool</a>
+    <a href="{% url 'carpool:nearby' %}" class="btn">Join a Carpool</a>
     <a href="{% url 'carpool:new_carpool' %}" class="btn">Start a Carpool</a>
 
 {% endif %}
