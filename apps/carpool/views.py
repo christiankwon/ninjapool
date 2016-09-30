@@ -14,9 +14,13 @@ def dashboard(request):
         messages.error(request, "Please log in.")
         return redirect(reverse('account:index'))
 
+
+
     user = User.objects.get(id=request.session['user_id'])
     stops = User.objects.filter(carpool_id=user.carpool_id)
-    carpool = models.Carpool.objects.filter(id=user.carpool_id)
+    carpool = models.Carpool.objects.get(id=user.carpool_id)
+    carpools = models.Carpool.objects.all()
+    print carpools
     
     try:
         car = Car.objects.get(owner=user)
@@ -43,10 +47,10 @@ def add_car(request):
             messages.success(request, response[1])
             try:
                 user = User.objects.get(id=user_id)
-                carpool = carpool.get(id=user.carpool_id)
+                carpool = models.Carpool.objects.get(id=user.carpool_id)
                 return redirect(reverse('carpool:dashboard'))
             except:
-                return redirect(reverse('carpool:new_carpool_router'))
+                return redirect(reverse('carpool:new_carpool'))
 
         else:
             messages.error(request, response[1])

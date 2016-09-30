@@ -25,7 +25,7 @@ class CarpoolManager(models.Manager):
         user.carpool_id = create.id
         user.save()
 
-        create.delete()
+        print create.id
 
         return (True, create)
 
