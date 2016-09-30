@@ -1,19 +1,55 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Wall</title>
-    </head>
-    <body>
-        <a href="{% url 'account:logout' %}">Logout</a>
-        {% for post in posts %}
-            <p>{{post.messager.first_name}} said... {{post.message_body}}</p>
-        {% endfor %}
-        <form action="{% url 'wall:post_message' id=wall.id %}" method="POST">
-       		{% csrf_token %}
-        	<textarea name="message_body" cols="30" rows="10" placeholder="Write your message..."></textarea>
-        	<input type="submit" value="Post Message">
-        </form>
-        <a href="{% url 'wall:users_list' %}">Users List</a>
-    </body>
-</html>
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+    <title>Messages</title>
+{% endblock %}
+
+
+{% block styles %}
+    <link type="text/css" rel="stylesheet" href="{% static 'carpool/css/styles.css' %}"  media="screen,projection"/>
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="{% static 'carpool/js/script.js' %}"></script>
+{% endblock %}
+
+
+{% block header %}
+    {{block.super}}
+{% endblock %}
+
+
+{% block content %}
+    <div class="section">
+        <div class="container">
+            {% for post in posts %}
+                <div class="row">
+                    <p><strong>{{post.messager.first_name}} said...</strong> {{post.message_body}}</p>
+
+                    <div class="divider"></div>
+                </div>
+            {% endfor %}
+
+            <form action="{% url 'wall:post_message' id=wall.id %}" method="POST">
+                {% csrf_token %}
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea name="message_body" id="message" class="materialize-textarea"></textarea>
+                        <label for="message">Add a message</label>
+                    </div>
+                </div>
+
+                <input type="submit" value="Post Message" class="btn right">
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block footer %}
+    {{block.super}}
+{% endblock %}
