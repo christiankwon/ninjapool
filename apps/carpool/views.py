@@ -6,6 +6,7 @@ import json
 from django.core.serializers.json import DjangoJSONEncoder
 
 from . import models
+from ..wall.models import Wall, Message
 from ..account.models import User, Car
 
 # Create your views here.
@@ -31,8 +32,12 @@ def dashboard(request):
             stops = stops.exclude(id=carpool.driver.id)
 
             car = Car.objects.filter(owner=user)
-
+            wall = Wall.objects.get(id=carpool.wall.id)
+            print (wall)
+            posts = Message.objects.filter(walls=wall)
+            print (posts)
             context = {
+                'posts': posts,
                 'user': user,
                 'start_address': address,
                 'stops': stops,
@@ -40,6 +45,7 @@ def dashboard(request):
                 'carpool': carpool,
                 'car': car,
                 'dojo_address': "10777 Main St #100, Bellevue, WA 98004",
+                'wall': wall
             }
         except:
             pass
