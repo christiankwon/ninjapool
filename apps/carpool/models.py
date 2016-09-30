@@ -18,6 +18,8 @@ class CarpoolManager(models.Manager):
             'driver': user,
             'wall': wall,
         }
+        print data
+        print self.all().values_list('driver')
 
         create = self.create(**data)
 
@@ -29,8 +31,9 @@ class CarpoolManager(models.Manager):
         return (True, create)
 
     def leave_carpool(self, user_id):
-        user = User.objects.get(user=user_id)
-        user.carpool_id=null
+        user = User.objects.get(id=user_id)
+        self.get(id=user.carpool_id).delete()
+        user.carpool_id=0
         user.save()
 
         return True

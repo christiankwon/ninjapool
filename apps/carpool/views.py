@@ -19,14 +19,17 @@ def dashboard(request):
         return redirect(reverse('account:index'))
 
     user = User.objects.get(id=request.session['user_id'])
-    stops = User.objects.filter(carpool_id=user.carpool_id)
-    carpool = models.Carpool.objects.get(id=user.carpool_id)
 
-    try:
-        car = Car.objects.get(owner=user)
-        context = {'user':user, 'stops':stops, 'carpool':carpool, 'car':car}
-    except:
-        context = {'user':user, 'stops':stops, 'carpool':carpool}
+    if models.Carpool.objects.filter(id=user.carpool_id):
+        stops = User.objects.filter(carpool_id=user.carpool_id)
+
+        try:
+            carpool = models.Carpool.objects.get(id=user.carpool_id)
+            car = Car.objects.get(owner=user)
+            context = {'user':user, 'stops':stops, 'carpool':carpool, 'car':car}
+        except:
+            pass
+    context = {'user':user}
 
     return render(request, 'carpool/index.html', context)
 
