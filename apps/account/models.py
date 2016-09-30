@@ -105,19 +105,18 @@ class UserManager(models.Manager):
             return (False, "Password is incorrect. Please try again.")
 
 
-    def removefromcarpool(self, userid):
-        pass
-
-
     def new_car(self, data, user_id):
         data = {
             'owner': self.get(id=user_id),
-            'name': data['name'],
+            'make': data['make'],
+            'model': data['model'],
+            'year': data['year'],
             'seats': data['seats'],
         }
 
         try:
             newcar = Car.objects.create(**data)
+            print newcar
             return (True, "Successfully created a car!", newcar)
 
         except:

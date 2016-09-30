@@ -1,11 +1,11 @@
 <h2>Ride Schedule</h2>
-{% if carpool.driver.id == request.session.user_id %}
-    <p>You're the driver for this Carpool!</p>
-{% else %}
-    <p>Your driver is {{carpool.driver.fname}}.</p>
-{% endif %}
-{% if carpool.driver.id == request.session.user_id%}
 
+{% if carpool.driver.id == request.session.user_id%}
+    {% if carpool.driver.id == request.session.user_id %}
+        <p>You're the driver for this Carpool!</p>
+    {% else %}
+        <p>Your driver is {{carpool.driver.fname}}.</p>
+    {% endif %}
     <table>
         {% for stop in stops %}
         <tr>
@@ -55,8 +55,14 @@
     </form>
 
 {% else %}
-    
-    <a href="{% url 'carpool:join' %}">Join a Carpool</a>
-    <a href="{% url 'carpool:create' %}">Start a Carpool</a>
+    {{car}}
+    <a href="{% url 'carpool:join' %}" class="btn">Join a Carpool</a>
+    <a href="
+    {% if car %}
+        {% url 'carpool:create' %}
+    {% else %}
+        {% url 'carpool:add_car' %}
+    {% endif %}
+    " class="btn">Start a Carpool</a>
 
 {% endif %}
