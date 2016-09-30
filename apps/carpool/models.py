@@ -6,7 +6,6 @@ from ..wall.models import Wall
 # Create your models here.
 class CarpoolManager(models.Manager):
     def new_carpool(self, data):
-        print data['user']
         user = data['user']
 
         wall = Wall.objects.create()
@@ -28,6 +27,13 @@ class CarpoolManager(models.Manager):
         print create.id
 
         return (True, create)
+
+    def leave_carpool(self, user_id):
+        user = User.objects.get(user=user_id)
+        user.carpool_id=null
+        user.save()
+
+        return True
 
 
 class Carpool(models.Model):

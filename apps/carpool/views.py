@@ -18,8 +18,6 @@ def dashboard(request):
         messages.error(request, "Please log in.")
         return redirect(reverse('account:index'))
 
-
-
     user = User.objects.get(id=request.session['user_id'])
     stops = User.objects.filter(carpool_id=user.carpool_id)
     carpool = models.Carpool.objects.get(id=user.carpool_id)
@@ -79,16 +77,11 @@ def add_car(request):
     return render(request, 'carpool/add_car.html')
 
 
-def join(request):
-    return redirect(reverse('carpool:nearby'))
-
-
 def new_carpool(request):
     try:
         user = User.objects.get(id=request.session['user_id'])
         car = Car.objects.get(owner=user)
-        Carpool.objects.new_carpool(user, car)
-        return redirect(reverse('carpool:dashboard'))
+        return render(request,'carpool/new_carpool.html')
     except:
         return redirect(reverse('carpool:add_car'))
 
@@ -100,6 +93,9 @@ def new_carpool_create(request):
     models.Carpool.objects.new_carpool(data)
     return redirect(reverse('carpool:dashboard'))
 
+def leave(request):
+    models.Carpool.objects.leave_carpool(request.session['user_id'])
+    return redirect(reverse('carpool:dashboard'))
 
 def join(request):
-        return redirect(reverse('carpool:nearby'))
+    return redirect(reverse('carpool:nearby'))

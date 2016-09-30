@@ -6,6 +6,7 @@
     {% else %}
         <p>Your driver is {{carpool.driver.fname}}.</p>
     {% endif %}
+    <a href="{% url 'carpool:leave' %}" class="btn">Leave Carpool</a>
     <table>
         {% for stop in stops %}
         <tr>
@@ -38,7 +39,6 @@
             {% endfor %}
         </div>
     </div>
-
 
 
     <h2>Chat</h2>

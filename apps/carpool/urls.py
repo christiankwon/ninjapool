@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^new_carpool$', views.new_carpool, name='new_carpool'),
     url(r'^new_carpool_create$', views.new_carpool_create, name='new_carpool_create'),
     url(r'^nearby$', views.nearby, name='nearby'),
+    url(r'^leave$', views.leave, name='leave'),
 ]
