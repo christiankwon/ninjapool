@@ -28,6 +28,10 @@ function showTable() {
 };
 
 function init() {
+    if( !dests.length ) {
+        return;
+    }
+
     var map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 47.6104, lng: -122.2007},
         zoom: 12,
@@ -79,8 +83,8 @@ function init() {
 
             var id = users[i].id;
 
-            // if( response.rows[0].elements[i].distance.value > 16093.4 ) continue // 10 miles
-            if( response.rows[0].elements[i].distance.value > 8046.72 ) {
+            if( response.rows[0].elements[i].distance.value > 16093.4 ) { // 10 miles
+            //if( response.rows[0].elements[i].distance.value > 8046.72 ) {
                 $('#user_' + id).hide()
                 continue; // 5 miles
             }
