@@ -1,3 +1,9 @@
+<script>
+    var raw_users = {{stops_json|safe}};
+    var dojo_address = "{{dojo_address}}";
+    var start_address = "{{start_address}}";
+</script>
+
 {% if user.carpool_id > 0 %}
     <h2>Ride Schedule</h2>
     {% if carpool.driver.id == request.session.user_id %}
@@ -5,29 +11,47 @@
     {% else %}
         <p>Your driver is {{carpool.driver.first_name}}.</p>
     {% endif %}
+
+    {{stops}}
+    <div class="section map-wrap">
+        <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Box"> -->
+        <div id="map"></div>
+    </div>
+    <div id="directions-panel"></div>
+
     <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Estimated Arrival</th>
+                <th>Actual Arrival</th>
+                <th>Departed</th>
+            </tr>
+        </thead>
+
         {% for stop in stops %}
+            <tr>
+                <td>{{stop.1}} {{stop.2}}</td>
+                <td id="stop_{{stop.0}}_eta">eta</td>
+                <td id="stop_{{stop.0}}_act">actual</td>
+                {% if stop.user.id == request.session.user_id or carpool.driver.id == request.session.user_id %}
+                    <td>
+                        <a href="{% url 'carpool:checkin' checkinid=request.session.user_id %}">Departed?</a>
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
         <tr>
-            <td>{{stop.user.first_name}}</td>
-        </tr>
-        <tr>
-            <td>Goal Departure:</td>
-            <td>{{stop.planned}}</td>
-        </tr>
-        <tr>
-            <td>Actual Departure:</td>
-            <td>{{stop.reality}}</td>
-            {% if stop.user.id == request.session.user_id %}
-                <td>
-                    <a href="{% url 'carpool:checkin' checkinid=request.session.user_id %}">Departed!</a>
-                </td>
-            {% endif %}
+            <td>Coding Dojo</td>
+            <td id="stop_{{stop.0}}_eta">eta</td>
+            <td id="stop_{{stop.0}}_act">actual</td>
 
         </tr>
-        {% endfor %}
     </table>
+
     <a href="{% url 'carpool:leave' %}" class="btn">Leave Carpool</a>
 
+    {% if car %}
     <div class="section">
         <div class="container">
             <h4>My Car</h4>
@@ -40,6 +64,7 @@
             {#% endfor %#}
         </div>
     </div>
+    {% endif %}
 
     <h2>Chat</h2>
     <div id="chats">

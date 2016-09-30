@@ -20,14 +20,27 @@ def dashboard(request):
 
     user = User.objects.get(id=request.session['user_id'])
     context = {'user':user}
-    
+
     if models.Carpool.objects.filter(id=user.carpool_id):
-        stops = User.objects.filter(carpool_id=user.carpool_id)    
+        stops = User.objects.filter(carpool_id=user.carpool_id).values_list('id', 'first_name', 'last_name', 'address', 'city', 'state', 'zipcode', 'carpool_id')
 
         try:
             carpool = models.Carpool.objects.get(id=user.carpool_id)
-            car = Car.objects.get(owner=user)
-            context = {'user':user, 'stops':stops, 'carpool':carpool, 'car':car}
+            address = carpool.driver.address + ' ' + carpool.driver.city + ', ' + carpool.driver.state + ' ' + str(carpool.driver.zipcode)
+
+            stops = stops.exclude(id=carpool.driver.id)
+
+            car = Car.objects.filter(owner=user)
+
+            context = {
+                'user': user,
+                'start_address': address,
+                'stops': stops,
+                'stops_json': json.dumps(list(stops), cls=DjangoJSONEncoder),
+                'carpool': carpool,
+                'car': car,
+                'dojo_address': "10777 Main St #100, Bellevue, WA 98004",
+            }
         except:
             pass
 
@@ -42,7 +55,7 @@ def nearby(request):
         messages.error(request, "Please log in.")
         return redirect(reverse('account:index'))
 
-    all_users = User.objects.exclude(id=request.session['user_id']).values_list('id', 'first_name', 'last_name', 'address', 'city', 'state', 'zipcode', 'arrive_by')
+    all_users = User.objects.exclude(id=request.session['user_id']).values_list('id', 'first_name', 'last_name', 'address', 'city', 'state', 'zipcode', 'arrive_by', 'carpool_id')
     json_users = json.dumps(list(all_users), cls=DjangoJSONEncoder)
     me = User.objects.get(id=request.session['user_id'])
     address = me.address + ' ' + me.city + ', ' + me.state + ' ' + str(me.zipcode)

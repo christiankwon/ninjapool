@@ -116,7 +116,7 @@ class UserManager(models.Manager):
 
         try:
             newcar = Car.objects.create(**data)
-            print newcar
+            
             return (True, "Successfully created a car!", newcar)
 
         except:
