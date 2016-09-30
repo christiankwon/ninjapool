@@ -1,6 +1,5 @@
-<h2>Ride Schedule</h2>
-
 {% if user.carpool_id > 0 %}
+    <h2>Ride Schedule</h2>
     {% if carpool.driver.id == request.session.user_id %}
         <p>You're the driver for this Carpool!</p>
     {% else %}
@@ -31,7 +30,7 @@
 
     <div class="section">
         <div class="container">
-            <h4>My Cars</h4>
+            <h4>My Car</h4>
 
             {#% for car in cars %#}
                 <div class="car">
@@ -56,6 +55,7 @@
     </form>
 
 {% else %}
+    <p>You are currently not in a carpool!</p>
     {{car}}
     <a href="{% url 'carpool:nearby' %}" class="btn">Join a Carpool</a>
     <a href="{% url 'carpool:new_carpool' %}" class="btn">Start a Carpool</a>

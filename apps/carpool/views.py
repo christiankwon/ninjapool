@@ -104,3 +104,8 @@ def join(request, carpool_id):
     user = User.objects.get(id=request.session['user_id'])
     models.Carpool.objects.join_carpool(user, carpool_id)
     return redirect(reverse('carpool:dashboard'))
+
+def view_carpool(request, carpool_id):
+    carpool = models.Carpool.objects.get(id=carpool_id)
+    users = User.objects.filter(carpool_id=carpool.id)
+    return render(request, 'carpool/view_carpool.html')
