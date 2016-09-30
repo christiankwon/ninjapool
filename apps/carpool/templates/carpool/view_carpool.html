@@ -72,7 +72,7 @@
                 {% if not user.carpool_id == carpool.id %}
                     <tr>
                         {% if count < car.seats %}
-                            <td><a href="{% url 'carpool:join' %}"class='btn'>Join This Carpool</a></td>
+                            <td><a href="{% url 'carpool:join' carpool_id=carpool.id%}"class='btn'>Join This Carpool</a></td>
                         {% else %}
                             <td><p>This carpool is currently full</p></td>
                         {% endif %}
