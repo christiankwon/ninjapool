@@ -9,6 +9,7 @@
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css"> -->
     <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/main.css' %}"  media="screen,projection"/>
     {% block styles %}{% endblock %}
 
     {% block title %}{% endblock %}
@@ -17,11 +18,12 @@
 <body>
     {% block header %}
         <header class="section">
-            <a href="{% url 'carpool:index' %}">Dashboard</a>
+            <a href="{% url 'carpool:index' %}" class="btn">Dashboard</a>
 
             {% if request.session.user_id %}
-                <a href="{% url 'account:logout' %}" class="right">log out</a>
-                <span class="right">Hello, {{request.session.user_name}}</span>
+                <a href="{% url 'carpool:nearby' %}" class="btn">See nearby users</a>
+                <a href="{% url 'account:logout' %}" class="right btn">log out</a>
+                <h5 class="right name">Hello, {{request.session.user_name}}</h5>
             {% endif %}
         </header>
     {% endblock %}

@@ -62,9 +62,8 @@
 
             <div id="chats">
                 {% for post in posts %}
-                    <h5>{{post.messager.first_name}} said... <small class="right">{{post.created_at}}</small></h3>
+                    <h5>{% if request.session.user_id == post.messager.id %}You{% else %}{{post.messager.first_name}}{% endif %} said... <small class="right">{{post.created_at}}</small></h3>
                     <p>{{post.message_body}}</p>
-                    <p></p>
                     <div class="divider"></div>
                 {% endfor %}
             </div>
@@ -88,10 +87,11 @@
             <div class="container">
                 <h4>My Cars</h4>
 
+                {% for c in car %}
                 <div class="car">
-                    <p>{{car.0.make}} {{car.0.model}}</p>
-                    <p>Seats: {{car.0.seats}}</p>
+                    <p>{{c.make}} {{c.model}} | Seats: {{c.seats}}</p>
                 </div>
+                {% endfor %}
             </div>
         </div>
     {% endif %}
