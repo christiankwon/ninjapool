@@ -41,9 +41,12 @@ def nearby(request):
 
     all_users = User.objects.exclude(id=request.session['user_id']).values_list('id', 'first_name', 'last_name', 'address', 'city', 'state', 'zipcode', 'arrive_by')
     json_users = json.dumps(list(all_users), cls=DjangoJSONEncoder)
+    me = User.objects.get(id=request.session['user_id'])
+    address = me.address + ' ' + me.city + ', ' + me.state + ' ' + str(me.zipcode)
 
     context = {
-        'me': User.objects.get(id=request.session['user_id']),
+        'me': me,
+        'my_address': address,
         'all_users': all_users,
         'json_users': json_users,
         'dojo_address': "10777 Main St #100, Bellevue, WA 98004",

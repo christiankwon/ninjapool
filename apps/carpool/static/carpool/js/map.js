@@ -9,7 +9,7 @@ for( var i = 0; i < raw_users.length; i++ ) {
     users.push({
         'id': _[0],
         'first_name': _[1],
-        'lsat_name': _[2],
+        'last_name': _[2],
         'address': _[3],
         'city': _[4],
         'state': _[5],
@@ -37,7 +37,13 @@ function init() {
     var markerClick = function(e) {
         var marker = this;
 
-        console.log(this)
+        if( marker.icon.indexOf('green') > -1 ) {
+            $('.highlighted-row').removeClass('highlighted-row');
+            return true;
+        }
+
+        $('.highlighted-row').removeClass('highlighted-row');
+        marker.user.html_element.addClass('highlighted-row')
     };
 
     var distMatrixCB = function(response, status) {
@@ -86,7 +92,7 @@ function init() {
 
     var distMatrix = new google.maps.DistanceMatrixService();
         distMatrix.getDistanceMatrix({
-            origins: ["12433 Admiralty Way Everett, WA 98204"],
+            origins: [my_address],
             destinations: dests,
             travelMode: 'DRIVING',
             // drivingOptions: DrivingOptions,

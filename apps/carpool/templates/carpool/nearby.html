@@ -30,6 +30,7 @@
         var raw_users = {{json_users|safe}};
 
         var dojo = "{{dojo_address}}";
+        var my_address = "{{my_address}}";
 
     </script>
 
@@ -49,7 +50,7 @@
                     <th>city</th>
                     <th>state</th>
                     <th>zipcode</th>
-                    <th>arrive_by</th>
+                    <th>Message</th>
                 </tr>
             </thead>
 
@@ -62,7 +63,7 @@
                         <td>{{user.4}}</td>
                         <td>{{user.5}}</td>
                         <td>{{user.6}}</td>
-                        <td><a href="{% url 'wall:wall_create' %}">Message</a></td>
+                        <td><a href="{% url 'wall:wall_create' id=user.0 %}">Message</a></td>
                     </tr>
                 {% endfor %}
             </tbody>

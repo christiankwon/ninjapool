@@ -58,3 +58,7 @@
 #users_table {
     display: none;
 }
+
+.highlighted-row {
+    background-color: #ddd;
+}
