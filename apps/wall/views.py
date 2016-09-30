@@ -7,7 +7,7 @@ from ..account.models import User
 
 
 def wall(request, id):
-	if not 'user_id' in request.session:
+	if 'user_id' not in request.session:
 		return redirect('wall:users_list')
 
 	user = User.objects.get(id=request.session['user_id'])

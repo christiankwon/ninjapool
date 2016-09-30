@@ -67,17 +67,18 @@
     </div>
     {% endif %}
 
-    <h2>Chat</h2>
+    <h2>Carpool Chat</h2>
     <div id="chats">
-        {% for message in messages %}
-            <h3>{{message.user.fname}}</h3>
-            <p>{{message.message}}</p>
-            <p>{{message.created_at}}</p>
+        {% for post in posts %}
+            <h3>{{post.messager.first_name}} said...</h3>
+            <p>{{post.message_body}}</p>
+            <p>{{post.created_at}}</p>
         {% endfor %}
     </div>
-    <form action="{#% url 'wall:newmessage' id=request.session.user_id %#}" method="post">
-        <input type="text" name="message">
-        <input type="submit" class="btn" value="Send">
+    <form action="{#% url 'wall:post_message' id=wall.id %#}" method="post">
+        {% csrf_token %}
+        <textarea name="message_body" cols="30" rows="10" placeholder="Write your message..."></textarea>
+        <input type="submit" class="btn" value="Post Message">
     </form>
 
 {% else %}
