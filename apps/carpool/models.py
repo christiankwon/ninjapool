@@ -36,6 +36,10 @@ class CarpoolManager(models.Manager):
 
         return True
 
+    def join_carpool(self, user, carpool_id):
+        user.carpool_id=carpool_id
+        user.save()
+
 
 class Carpool(models.Model):
     num_passengers = models.IntegerField()
