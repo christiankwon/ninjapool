@@ -23,13 +23,14 @@ def dashboard(request):
     if models.Carpool.objects.filter(id=user.carpool_id):
         stops = User.objects.filter(carpool_id=user.carpool_id)
 
+        context = {'user':user}
+
         try:
             carpool = models.Carpool.objects.get(id=user.carpool_id)
             car = Car.objects.get(owner=user)
             context = {'user':user, 'stops':stops, 'carpool':carpool, 'car':car}
         except:
             pass
-    context = {'user':user}
 
     return render(request, 'carpool/index.html', context)
 

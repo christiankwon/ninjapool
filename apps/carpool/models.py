@@ -18,15 +18,11 @@ class CarpoolManager(models.Manager):
             'driver': user,
             'wall': wall,
         }
-        print data
-        print self.all().values_list('driver')
 
         create = self.create(**data)
 
         user.carpool_id = create.id
         user.save()
-
-        print create.id
 
         return (True, create)
 

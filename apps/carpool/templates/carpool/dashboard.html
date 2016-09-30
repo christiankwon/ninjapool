@@ -4,12 +4,12 @@
     {% if carpool.driver.id == request.session.user_id %}
         <p>You're the driver for this Carpool!</p>
     {% else %}
-        <p>Your driver is {{carpool.driver.fname}}.</p>
+        <p>Your driver is {{carpool.driver.f_first_name}}.</p>
     {% endif %}
     <table>
         {% for stop in stops %}
         <tr>
-            <td>{{stop.user.fname}}</td>
+            <td>{{stop.user.f_first_name}}</td>
         </tr>
         <tr>
             <td>Goal Departure:</td>
