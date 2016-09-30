@@ -19,11 +19,10 @@ def dashboard(request):
         return redirect(reverse('account:index'))
 
     user = User.objects.get(id=request.session['user_id'])
-
+    context = {'user':user}
+    
     if models.Carpool.objects.filter(id=user.carpool_id):
-        stops = User.objects.filter(carpool_id=user.carpool_id)
-
-        context = {'user':user}
+        stops = User.objects.filter(carpool_id=user.carpool_id)    
 
         try:
             carpool = models.Carpool.objects.get(id=user.carpool_id)
@@ -101,5 +100,7 @@ def leave(request):
     models.Carpool.objects.leave_carpool(request.session['user_id'])
     return redirect(reverse('carpool:dashboard'))
 
-def join(request):
-    return redirect(reverse('carpool:nearby'))
+def join(request, carpool_id):
+    user = User.objects.get(id=request.session['user_id'])
+    models.Carpool.objects.join_carpool(user, carpool_id)
+    return redirect(reverse('carpool:dashboard'))
