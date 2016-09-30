@@ -53,9 +53,6 @@ def dashboard(request):
     return render(request, 'carpool/index.html', context)
 
 
-def checkin(request, checkinid):
-    return redirect(reverse('carpool:dashboard'))
-
 def nearby(request):
     if 'user_id' not in request.session:
         messages.error(request, "Please log in.")
@@ -125,6 +122,10 @@ def join(request, carpool_id):
     return redirect(reverse('carpool:dashboard'))
 
 def view_carpool(request, carpool_id):
+    user = User.objects.get(id=request.session['user_id'])
     carpool = models.Carpool.objects.get(id=carpool_id)
     users = User.objects.filter(carpool_id=carpool.id)
-    return render(request, 'carpool/view_carpool.html')
+    car = Car.objects.get(owner=carpool.driver)
+    context = {'users':users, 'carpool':carpool, 'count':len(users)-1, 'car':car, 'user':user}
+
+    return render(request, 'carpool/view_carpool.html', context)
