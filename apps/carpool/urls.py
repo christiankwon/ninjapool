@@ -8,7 +8,6 @@ urlpatterns = [
     url(r'^add_car$', views.add_car, name='add_car'),
     url(r'^join$', views.join, name='join'),
     url(r'^new_carpool$', views.new_carpool, name='new_carpool'),
-    url(r'^new_carpool_create$', views.new_carpool_create, name='new_carpool_create')
-    url(r'^create$', views.creator, name='create'),
+    url(r'^new_carpool_create$', views.new_carpool_create, name='new_carpool_create'),
     url(r'^nearby$', views.nearby, name='nearby'),
 ]
