@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Wall</title>
+    </head>
+    <body>
+        <a href="{% url 'account:logout' %}">Logout</a>
+        {% for post in posts %}
+            <p>{{post.messager.first_name}} said... {{post.message_body}}</p>
+        {% endfor %}
+        <form action="{% url 'wall:post_message' id=wall.id %}" method="POST">
+       		{% csrf_token %}
+        	<textarea name="message_body" cols="30" rows="10" placeholder="Write your message..."></textarea>
+        	<input type="submit" value="Post Message">
+        </form>
+        <a href="{% url 'wall:users_list' %}">Users List</a>
+    </body>
+</html>
