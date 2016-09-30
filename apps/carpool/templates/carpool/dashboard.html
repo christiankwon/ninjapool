@@ -33,10 +33,12 @@
         <div class="container">
             <h4>My Cars</h4>
 
-            {% for car in cars %}
-                <p>{{car.name}}</p>
-                <p>Seats: {{car.seats}}</p>
-            {% endfor %}
+            {#% for car in cars %#}
+                <div class="car">
+                    <p>{{car.make}} {{car.model}}</p>
+                    <p>Seats: {{car.seats}}</p>
+                </div>
+            {#% endfor %#}
         </div>
     </div>
 

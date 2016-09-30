@@ -84,7 +84,7 @@ def new_carpool(request):
     try:
         user = User.objects.get(id=request.session['user_id'])
         car = Car.objects.get(owner=user)
-        return render(request,'carpool/new_carpool.html')
+        return render(request,'carpool/new_carpool.html', {'user':user, 'car':car})
     except:
         return redirect(reverse('carpool:add_car'))
 
