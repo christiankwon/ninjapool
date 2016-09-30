@@ -31,7 +31,7 @@ class CarpoolManager(models.Manager):
         carpool = self.get(id=user.carpool_id)
         user.carpool_id=0
         user.save()
-        if carpool.driver = user:
+        if carpool.driver == user:
             carpool.delete()
 
         return True
