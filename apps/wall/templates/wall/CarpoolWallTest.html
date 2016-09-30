@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>CARPOOL TEST</title>
+    </head>
+    <body>
+        <h1>CARPOOL TEST</h1>
+        <form action="{% url 'wall:post_message' id=wall.id %}" method="POST">
+       		{% csrf_token %}
+        	<textarea name="message_body" cols="30" rows="10" placeholder="Write your message..."></textarea>
+        	<input type="submit" value="Post Message">
+        </form>
+    </body>
+</html>

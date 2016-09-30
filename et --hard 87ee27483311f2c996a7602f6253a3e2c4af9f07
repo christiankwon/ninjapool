@@ -1,0 +1,216 @@
+[33mcommit 87ee27483311f2c996a7602f6253a3e2c4af9f07[m
+Merge: 73968d0 2a18cd5
+Author: james-moreno <bonsaimo7@gmail.com>
+Date:   Thu Sep 29 16:45:42 2016 -0700
+
+    resolved merge conflicts
+
+[33mcommit 73968d0f08628834d7901271eb38f98861909fdf[m
+Author: james-moreno <bonsaimo7@gmail.com>
+Date:   Thu Sep 29 16:19:29 2016 -0700
+
+    added testable direct messaging
+
+[33mcommit 2a18cd50e11f29ff9b82d82f25e023959ad469c1[m
+Author: Paul Mun <paulmun818@gmail.com>
+Date:   Thu Sep 29 16:18:45 2016 -0700
+
+    Completed adding vehicle. Checks for existing vehicle. Ready to be routed to Carpool creation form
+
+[33mcommit e8af0212b7a48c654534c5c03787c80c7508b610[m
+Author: Paul Mun <paulmun818@gmail.com>
+Date:   Thu Sep 29 11:00:07 2016 -0700
+
+    Added new functions into views.py for carpool
+
+[33mcommit 1022d3eba3e9d6caf3297cd634ab9aff4755c72c[m
+Merge: cf75c0a 438a7a2
+Author: Christian Kwon <christiankwon@outlook.com>
+Date:   Thu Sep 29 10:40:57 2016 -0700
+
+    Merge branch 'master' of https://github.com/christiankwon/ninjapool
+
+[33mcommit cf75c0a9831f2f98ec87029c352587f4f22ae679[m
+Author: Christian Kwon <christiankwon@outlook.com>
+Date:   Thu Sep 29 10:40:53 2016 -0700
+
+    Remove driver register / Add car register
+
+[33mcommit 438a7a2b2e1c7269234faecc594821d58fad04b1[m
+Merge: e1e4172 27d11d8
+Author: Paul Mun <paulmun818@gmail.com>
+Date:   Thu Sep 29 10:39:35 2016 -0700
+
+    Merge branch 'master' of https://github.com/christiankwon/ninjapool
+
+[33mcommit e1e4172e56753802bc3668fef421cbf455ff7bd9[m
+Author: Paul Mun <paulmun818@gmail.com>
+Date:   Thu Sep 29 10:39:27 2016 -0700
+
+    Added buttons for joining and creating carpools. Pulling for updated views and urls files.
+
+[33mcommit 27d11d89b8427e4ca2cc0083b84b6be8da000d0b[m
+Author: Christian Kwon <christiankwon@outlook.com>
+Date:   Thu Sep 29 10:03:27 2016 -0700
+
+    remove old migration file
+
+[33mcommit 5cd943451db8501f0123d70dc470d7a9b0afd1c7[m
+Author: Christian Kwon <christiankwon@outlook.com>
+Date:   Thu Sep 29 09:52:34 2016 -0700
+
+    Redo all migrations
+
+[33mcommit b039f8d36b192bfcb76b8b1e8ce9a3f98f6b8b8a[m
+Author: Christian Kwon <christiankwon@outlook.com>
+Date:   Thu Sep 29 09:14:09 2016 -0700
+
+    Add a link for driver registration into header
+
+[33mcommit 344d37ef69832d295db57e35bf210336adfeda39[m
+Merge: 2f9d823 11e946b
+Author: Paul Mun <paulmun818@gmail.com>
+Date:   Thu Sep 29 09:23:51 2016 -0700
+
+    Resolved merge conflicts from pull.
+
+[33mcommit 11e946b067eced46a44a3d5193b42fce9f0a40d3[m
+Author: Christian Kwon <christiankwon@outlook.com>
+Date:   Thu Sep 29 09:10:13 2016 -0700
+
+    fix carpool index
+
+[33mcommit 5b2dca3ebfdd50fba4f131c00748b88295134fe8[m
+Author: Christian Kwon <christiankwon@outlook.com>
+Date:   Thu Sep 29 09:00:08 2016 -0700
+
+    redirect log in to carpool index
+
+[33mcommit 2f9d823d167ba7d644f9e9fd4b674c8a8cae5222[m
+Author: Paul Mun <paulmun818@gmail.com>
+Date:   Thu Sep 29 08:57:03 2016 -0700
+
+    Fixed indentation errors
+
+[33mcommit 8fae52e8b00776a1b144ef18863afc98ad2bd7d1[m
+Author: Christian Kwon <christiankwon@outlook.com>
+Date:   Thu Sep 29 08:54:52 2016 -0700
+
+    update register as driver page
+
+[33mcommit fadc97f66bf0acd77cf8a3d4faa63915f9e31ed9[m
+Merge: 0a9ea10 db24dfc
+Author: Paul Mun <paulmun818@gmail.com>
+Date:   Thu Sep 29 08:42:11 2016 -0700
+
+    Merge branch 'master' of https://github.com/christiankwon/ninjapool
+
+[33mcommit 0a9ea10b92eb3833fb1fad9b7d83b394733b5a2b[m
+Author: Paul Mun <paulmun818@gmail.com>
+Date:   Thu Sep 29 08:41:48 2016 -0700
+
+    Moved index contents to dashboard.html
+
+[33mcommit db24dfc94c17a23680ed884a0b0afc44dcefbcb2[m
+Author: Christian Kwon <christiankwon@outlook.com>
+Date:   Thu Sep 29 07:57:16 2016 -0700
+
+    Activate wall app
+
+[33mcommit 62936f40bf90483ae40cb65ae8376b9b37317fdb[m
+Author: Christian Kwon <christiankwon@outlook.com>
+Date:   Thu Sep 29 07:57:06 2016 -0700
+
+    make migrations
+
+[33mcommit 9bc683c5a9343046e17b9760859f8d5381b7e544[m
+Author: Paul Mun <paulmun818@gmail.com>
+Date:   Thu Sep 29 07:56:59 2016 -0700
+
+    Fixed syntax in carpools
+
+[33mcommit ef0727fc1d8045734caaab77e5d360fda2719c4b[m
+Merge: 2bd9bc8 d2c46b8
+Author: Paul Mun <paulmun818@gmail.com>
+Date:   Wed Sep 28 18:54:37 2016 -0700
+
+    Resolved merge conflicts caused by Christian
+
+[33mcommit 2bd9bc8baa8ac9a732577ff6fb01fb64b47a9b9e[m
+Author: Paul Mun <paulmun818@gmail.com>
+Date:   Wed Sep 28 18:51:52 2016 -0700
+
+    Main logic for views.index completed.
+
+[33mcommit d2c46b80c5023e024da43add8513b6c2beb4c233[m
+Merge: c97278b 0b36c0d
+Author: james-moreno <bonsaimo7@gmail.com>
+Date:   Wed Sep 28 18:49:33 2016 -0700
+
+    fixed conflicts
+
+[33mcommit c97278b395847a3be519f1930356bd485ca81d51[m
+Author: james-moreno <bonsaimo7@gmail.com>
+Date:   Wed Sep 28 18:46:24 2016 -0700
+
+    testing messages
+
+[33mcommit 0b36c0d505379b4cec410624c10710c9a876040b[m
+Author: Christian Kwon <christiankwon@outlook.com>
+Date:   Wed Sep 28 18:43:17 2016 -0700
+
+    update successful login route
+
+[33mcommit 544523a8e3aa150fe728226ea2d4a2894515a107[m
+Author: Christian Kwon <christiankwon@outlook.com>
+Date:   Wed Sep 28 18:41:56 2016 -0700
+
+    move location model into user model
+
+[33mcommit cb4d9e98e651a21ffa28554da59505bcbc1a7880[m
+Author: Christian Kwon <christiankwon@outlook.com>
+Date:   Wed Sep 28 18:12:30 2016 -0700
+
+    Add register driver page
+
+[33mcommit 204d85cc306862b67c827330d7939675332cba18[m
+Author: Paul Mun <paulmun818@gmail.com>
+Date:   Wed Sep 28 17:55:29 2016 -0700
+
+    Completed index.html for carpool.
+
+[33mcommit b5792ff65518b6b3fdac4362c478f66b6a2dfba2[m
+Author: Christian Kwon <christiankwon@outlook.com>
+Date:   Wed Sep 28 16:54:09 2016 -0700
+
+    add nullable to carpool_id
+
+[33mcommit 2e91ede47d60007d85ee4364eebeb653bfeda018[m
+Author: Christian Kwon <christiankwon@outlook.com>
+Date:   Wed Sep 28 16:53:58 2016 -0700
+
+    change footer from pink to transparent
+
+[33mcommit ab6e00252d93cf77c030f13815c403e53b290b0d[m
+Author: Christian Kwon <christiankwon@outlook.com>
+Date:   Wed Sep 28 16:40:16 2016 -0700
+
+    more models
+
+[33mcommit 5d12927d3b3c3b77f0ebbb9b79a903baf09ad4de[m
+Author: Christian Kwon <christiankwon@outlook.com>
+Date:   Wed Sep 28 16:25:48 2016 -0700
+
+    models models models models
+
+[33mcommit fafbdde6dee9680f1921b64d655107d10d125186[m
+Author: Christian Kwon <christiankwon@outlook.com>
+Date:   Wed Sep 28 16:06:59 2016 -0700
+
+    add carpool app
+
+[33mcommit a17a2b99191dbb2b27da98088cdf630d43f73e26[m
+Author: Christian Kwon <christiankwon@outlook.com>
+Date:   Wed Sep 28 16:00:16 2016 -0700
+
+    First commit
