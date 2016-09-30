@@ -6,7 +6,6 @@ from ..wall.models import Wall
 # Create your models here.
 class CarpoolManager(models.Manager):
     def new_carpool(self, data):
-        print data['user']
         user = data['user']
 
         wall = Wall.objects.create()
