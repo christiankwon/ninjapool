@@ -55,7 +55,7 @@ def nearby(request):
         messages.error(request, "Please log in.")
         return redirect(reverse('account:index'))
 
-    all_users = User.objects.exclude(id=request.session['user_id']).values_list('id', 'first_name', 'last_name', 'address', 'city', 'state', 'zipcode', 'arrive_by', 'carpool_id')
+    all_users = User.objects.exclude(id=request.session['user_id']).values_list('id', 'first_name', 'last_name', 'address', 'city', 'state', 'zipcode', 'carpool_id')
     json_users = json.dumps(list(all_users), cls=DjangoJSONEncoder)
     me = User.objects.get(id=request.session['user_id'])
     address = me.address + ' ' + me.city + ', ' + me.state + ' ' + str(me.zipcode)

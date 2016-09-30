@@ -4,68 +4,61 @@
     var start_address = "{{start_address}}";
 </script>
 
-<h2>Ride Schedule</h2>
-
 {% if user.carpool_id > 0 %}
-    {% if carpool.driver.id == request.session.user_id %}
-        <p>You're the driver for this Carpool!</p>
-    {% else %}
-        <p>Your driver is {{carpool.driver.first_name}}.</p>
-    {% endif %}
-
-    {{stops}}
-    <div class="section map-wrap">
-        <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Box"> -->
-        <div id="map"></div>
-    </div>
-    <div id="directions-panel"></div>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Estimated Arrival</th>
-                <th>Actual Arrival</th>
-                <th>Departed</th>
-            </tr>
-        </thead>
-
-        {% for stop in stops %}
-            <tr>
-                <td>{{stop.1}} {{stop.2}}</td>
-                <td id="stop_{{stop.0}}_eta">eta</td>
-                <td id="stop_{{stop.0}}_act">actual</td>
-                {% if stop.user.id == request.session.user_id or carpool.driver.id == request.session.user_id %}
-                    <td>
-                        <a href="{% url 'carpool:checkin' checkinid=request.session.user_id %}">Departed?</a>
-                    </td>
-                {% endif %}
-            </tr>
-        {% endfor %}
-        <tr>
-            <td>Coding Dojo</td>
-            <td id="stop_{{stop.0}}_eta">eta</td>
-            <td id="stop_{{stop.0}}_act">actual</td>
-
-        </tr>
-    </table>
-
-    <a href="{% url 'carpool:leave' %}" class="btn">Leave Carpool</a>
-
-    {% if car %}
     <div class="section">
         <div class="container">
-            <h4>My Cars</h4>
-
-            {#% for car in cars %#}
-                <div class="car">
-                    <p>{{car.make}} {{car.model}}</p>
-                    <p>Seats: {{car.seats}}</p>
-                </div>
-            {#% endfor %#}
+            <h2 class="center-align">Your carpool</h2>
+            <a href="{% url 'carpool:leave' %}" class="btn right">Leave Carpool</a>
+            {% if carpool.driver.id == request.session.user_id %}
+                <h5>You're the driver for this Carpool!</h5>
+            {% else %}
+                <h5>Your driver is {{carpool.driver.first_name}}.</h5>
+            {% endif %}
         </div>
     </div>
-    {% endif %}
+
+
+    <div class="section">
+        <div class="container map-wrap">
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="container">
+            <table class="bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Distance</th>
+                        <th>Approximate Travel Time</th>
+                        <th>Estimated Arrival</th>
+                        <!-- <th>Actual Arrival</th> -->
+                        <!-- <th>Departed</th> -->
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="right-align">Leave by:</td>
+                        <td>6:00 AM</td>
+                    </tr>
+                    <tr id="dojo_stop">
+                        <td>Coding Dojo</td>
+                        <td>{{dojo_address}}</td>
+                        <td class="distance"></td>
+                        <td class="time"></td>
+                        <td class="eta"></td>
+                        <!-- <td id="stop_{{stop.0}}_act">actual</td> -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <h2>Chat</h2>
     <div id="chats">
@@ -80,9 +73,27 @@
         <input type="submit" class="btn" value="Send">
     </form>
 
+    {% if car %}
+        <div class="section">
+            <div class="container">
+                <h4>My Cars</h4>
+
+                {#% for car in cars %#}
+                    <div class="car">
+                        <p>{{car.make}} {{car.model}}</p>
+                        <p>Seats: {{car.seats}}</p>
+                    </div>
+                {#% endfor %#}
+            </div>
+        </div>
+    {% endif %}
+
 {% else %}
-    {{car}}
-    <a href="{% url 'carpool:nearby' %}" class="btn">Join a Carpool</a>
-    <a href="{% url 'carpool:new_carpool' %}" class="btn">Start a Carpool</a>
+    <div class="section">
+        <div class="container">
+            <a href="{% url 'carpool:nearby' %}" class="btn">Join a Carpool</a>
+            <a href="{% url 'carpool:new_carpool' %}" class="btn">Start a Carpool</a>
+        </div>
+    </div>
 
 {% endif %}

@@ -42,28 +42,60 @@ function routeInit() {
         });
     }
 
+    var currentTime = new Date();
+    currentTime.setHours(6);
+    currentTime.setMilliseconds(0);
+    currentTime.setSeconds(0);
+    currentTime.setMinutes(0);
+
+
+    var _getETA = function(seconds) {
+        currentTime.setSeconds(currentTime.getSeconds() + seconds);
+
+        return currentTime;
+    };
+
+
     directionsService.route({
         origin: start_address,
         destination: dojo_address,
         waypoints: wpts,
         optimizeWaypoints: true,
-        travelMode: 'DRIVING'
+        travelMode: 'DRIVING',
+        drivingOptions: {
+            departureTime: currentTime,
+            trafficModel: 'pessimistic'
+        }
+
     }, function(response, status) {
         if( status === 'OK' ) {
             directionsDisplay.setDirections(response);
             var route = response.routes[0];
-            var summaryPanel = document.getElementById('directions-panel');
-            summaryPanel.innerHTML = '';
-            // For each route, display summary information.
-            for (var i = 0; i < route.legs.length; i++) {
-                var routeSegment = i + 1;
-                summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
-                '</b><br>';
-                console.log(route)
-                summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
-                summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
-                summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+
+            var order = route.waypoint_order;
+            var dojo = $('#dojo_stop');
+
+
+
+            for( var i = 0; i < order.length; i++ ) {
+                var user = users[order[i]];
+
+                var leg = route.legs[i];
+
+                var row = $('<tr>');
+                row.append($('<td>').text(user.first_name + ' ' + user.last_name))
+                row.append($('<td>').text(leg.end_address))
+                row.append($('<td>').text(leg.distance.text))
+                row.append($('<td>').text(leg.duration.text))
+                row.append($('<td>').text(_getETA(leg.duration.value).toLocaleTimeString()))
+                row.insertBefore(dojo);
             }
+
+            dojo_leg = route.legs[route.legs.length-1];
+            dojo.find('.distance').text(dojo_leg.distance.text)
+            dojo.find('.time').text(dojo_leg.duration.text)
+            dojo.find('.eta').text(_getETA(dojo_leg.duration.value).toLocaleTimeString())
+
         } else {
             console.log('Directions failed due to ' + status);
         }

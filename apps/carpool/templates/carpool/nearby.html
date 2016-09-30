@@ -40,36 +40,42 @@
     </div>
 
     <div class="section">
-        <h4>Users</h4>
-        <table id="users_table">
-            <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <!-- <th>Address</th> -->
-                    <th>City</th>
-                    <th>State</th>
-                    <th>Zip</th>
-                    <th>In a carpool?</th>
-                    <th>Message</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                {% for user in all_users %}
-                    <tr id="user_{{user.0}}">
-                        <td>{{user.1}}</td>
-                        <td>{{user.2}}</td>
-                        <!-- <td>{{user.3}}</td> -->
-                        <td>{{user.4}}</td>
-                        <td>{{user.5}}</td>
-                        <td>{{user.6}}</td>
-                        <td>{{user.7}}</td>
-                        <td><a href="{% url 'wall:wall_create' id=user.0 %}">Message</a></td>
+        <div class="container">
+            <h4 class="center-align">Nearby Users</h4>
+            <table id="users_table">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <!-- <th>Address</th> -->
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Zip</th>
+                        <th>In a carpool?</th>
+                        <th>Message</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+
+                <tbody>
+                    {% for user in all_users %}
+                        <tr id="user_{{user.0}}">
+                            <td>{{user.1}}</td>
+                            <td>{{user.2}}</td>
+                            <!-- <td>{{user.3}}</td> -->
+                            <td>{{user.4}}</td>
+                            <td>{{user.5}}</td>
+                            <td>{{user.6}}</td>
+                            <td>{% if user.7 %}
+                                <a href="{#% url 'carpool/view_carpool' carpool_id=user.7 %#}">Yes</a>
+                            {% else %}
+                                <p>No</p>
+                            {% endif %}</td>
+                            <td><a href="{% url 'wall:wall_create' id=user.0 %}">Message</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 
 {% endblock %}
