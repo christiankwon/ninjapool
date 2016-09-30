@@ -141,7 +141,9 @@ class User(models.Model):
 
 
 class Car(models.Model):
-    name = models.CharField(max_length=200)
+    make = models.CharField(max_length=200)
+    model = models.CharField(max_length=200)
+    year = models.IntegerField()
     seats = models.IntegerField()
     owner = models.ForeignKey(User)
     created_at = models.DateTimeField(auto_now_add=True)

@@ -15,8 +15,6 @@ class CarpoolManager(models.Manager):
         data = {
             'num_passengers': data['seats'],
             'arrival_time': data['arrive'],
-            'leave_time': data['leave'],
-            'max_extra_distance': data['distance'],
             'driver': user,
             'wall': wall,
         }

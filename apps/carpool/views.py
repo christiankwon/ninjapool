@@ -1,12 +1,16 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib import messages
+
+import json
+from django.core.serializers.json import DjangoJSONEncoder
+
 from . import models
 from ..account.models import User, Car
 
 # Create your views here.
 def index(request):
-    return render(request, 'carpool/dashboard.html')
+    return render(request, 'carpool/index.html')
 
 
 def dashboard(request):
@@ -27,6 +31,22 @@ def dashboard(request):
 def checkin(request, checkinid):
     return redirect(reverse('carpool:dashboard'))
 
+def nearby(request):
+    if 'user_id' not in request.session:
+        messages.error(request, "Please log in.")
+        return redirect(reverse('account:index'))
+
+    all_users = User.objects.exclude(id=request.session['user_id']).values_list('id', 'first_name', 'last_name', 'address', 'city', 'state', 'zipcode', 'arrive_by')
+    json_users = json.dumps(list(all_users), cls=DjangoJSONEncoder)
+
+    context = {
+        'me': User.objects.get(id=request.session['user_id']),
+        'all_users': all_users,
+        'json_users': json_users,
+        'dojo_address': "10777 Main St #100, Bellevue, WA 98004",
+    }
+    return render(request, 'carpool/nearby.html', context)
+
 
 def add_car(request):
     if 'user_id' not in request.session:
@@ -46,8 +66,10 @@ def add_car(request):
 
     return render(request, 'carpool/add_car.html')
 
+
 def join(request):
     return redirect(reverse('carpool:nearby'))
+
 
 def create(request):
     return redirect(reverse('carpool:dashboard'))
