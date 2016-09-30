@@ -23,8 +23,21 @@ def wall(request, id):
 	return render(request, 'wall/wall.html', context)
 
 
-def post_message(request, id):
+def wall_message(request, id):
+	if request.method == 'POST':
+		response = Message.objects.new_message(request.POST['message_body'], request.session['user_id'], id)
 
+		if response[0]:
+			messages.success(request, response[1])
+		else:
+			for msg in response[1]:
+				messages.error(request, msg)
+			return redirect(reverse('carpool:dashboard'))
+
+	return redirect(reverse('carpool:dashboard'))
+
+
+def post_message(request, id):
 	if request.method == 'POST':
 		response = Message.objects.new_message(request.POST['message_body'], request.session['user_id'], id)
 

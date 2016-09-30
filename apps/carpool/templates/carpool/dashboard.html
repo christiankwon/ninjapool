@@ -69,12 +69,13 @@
     <h2>Carpool Chat</h2>
     <div id="chats">
         {% for post in posts %}
-            <h3>{{post.messager.first_name}} said...</h3>
+            <h5>{{post.messager.first_name}} said...</h3>
             <p>{{post.message_body}}</p>
             <p>{{post.created_at}}</p>
         {% endfor %}
     </div>
-    <form action="{#% url 'wall:post_message' id=wall.id %#}" method="post">
+
+    <form action="{% url 'wall:wall_message' id=wall.id %}" method="post">
         {% csrf_token %}
         <textarea name="message_body" cols="30" rows="10" placeholder="Write your message..."></textarea>
         <input type="submit" class="btn" value="Post Message">
