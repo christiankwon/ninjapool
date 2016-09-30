@@ -116,6 +116,8 @@ def leave(request):
 
 def join(request, carpool_id):
     user = User.objects.get(id=request.session['user_id'])
+    if user.carpool_id > 0:
+        models.Carpool.objects.leave_carpool(user.id)
     models.Carpool.objects.join_carpool(user, carpool_id)
     return redirect(reverse('carpool:dashboard'))
 

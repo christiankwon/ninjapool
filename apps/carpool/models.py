@@ -46,7 +46,7 @@ class CarpoolManager(models.Manager):
         print carpool.id
 
         carpool.wall.users.add(user)
-        wall.save()
+        carpool.wall.save()
 
 
 class Carpool(models.Model):
