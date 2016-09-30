@@ -26,7 +26,7 @@
 	<div class="container">
 		<form action="{% url 'carpool:new_carpool_create' %}" method="post">
 		{% csrf_token %}
-			<p>My {{car.make}} {{car.model}} can take {{car.seats}}.</p>
+			<p>My {{car.make}} {{car.model}} can take {{car.seats}} people.</p>
 			<input type="time" name="arrive">
 			<input class="btn" type="submit" value="Create">
 		</form>

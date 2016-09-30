@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+    <title>Nearby | Carpool</title>
+{% endblock %}
+
+
+{% block styles %}
+    <link type="text/css" rel="stylesheet" href="{% static 'carpool/css/map.css' %}"  media="screen,projection">
+    <link type="text/css" rel="stylesheet" href="{% static 'carpool/css/styles.css' %}"  media="screen,projection">
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="{% static 'carpool/js/map.js' %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlOEo7PTE26ykaAVgT3qIjyPLS1DiZThU&libraries=places&callback=init" async defer></script>
+    <script src="{% static 'carpool/js/script.js' %}"></script>
+{% endblock %}
+
+
+{% block header %}
+    {{block.super}}
+{% endblock %}
+
+
+{% block content %}
+    <script>
+        var raw_users = {{json_users|safe}};
+
+        var dojo = "{{dojo_address}}";
+        var my_address = "{{my_address}}";
+
+    </script>
+
+    <div class="section map-wrap">
+        <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Box"> -->
+        <div id="map"></div>
+    </div>
+
+    <div class="section">
+        <h4>Users</h4>
+        <table id="users_table">
+            <thead>
+                <tr>
+                    <th>first_name</th>
+                    <th>last_name</th>
+                    <th>city</th>
+                    <th>zipcode</th>
+                    <th>Message</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for user in all_users %}
+                    <tr id="user_{{user.0}}">
+                        <td>{{user.1}}</td>
+                        <td>{{user.2}}</td>
+                        <td>{{user.4}}</td>
+                        <td>{{user.6}}</td>
+                        <td><a href="{% url 'wall:wall_create' id=user.0 %}">Message</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
+
+
+{% block footer %}
+    {{block.super}}
+{% endblock %}
