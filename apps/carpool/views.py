@@ -33,9 +33,7 @@ def dashboard(request):
 
             car = Car.objects.filter(owner=user)
             wall = Wall.objects.get(id=carpool.wall.id)
-            print (wall)
             posts = Message.objects.filter(walls=wall)
-            print (posts)
             context = {
                 'posts': posts,
                 'user': user,
@@ -126,6 +124,20 @@ def view_carpool(request, carpool_id):
     carpool = models.Carpool.objects.get(id=carpool_id)
     users = User.objects.filter(carpool_id=carpool.id)
     car = Car.objects.get(owner=carpool.driver)
-    context = {'users':users, 'carpool':carpool, 'count':len(users)-1, 'car':car, 'user':user}
+
+    start_address = carpool.driver.address + ' ' + carpool.driver.city + ', ' + carpool.driver.state + ' ' + str(carpool.driver.zipcode)
+    stops = User.objects.filter(carpool_id=carpool.id).exclude(id=carpool.driver.id).values_list('id', 'first_name', 'last_name', 'address', 'city', 'state', 'zipcode', 'carpool_id')
+
+    context = {
+        'users': users,
+        'carpool': carpool,
+        'count': len(users)-1,
+        'car': car,
+        'user': user,
+        'stops': stops,
+        'start_address': start_address,
+        'stops_json': json.dumps(list(stops), cls=DjangoJSONEncoder),
+        'dojo_address': "10777 Main St #100, Bellevue, WA 98004",
+    }
 
     return render(request, 'carpool/view_carpool.html', context)

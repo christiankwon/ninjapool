@@ -14,8 +14,8 @@
 
 
 {% block scripts %}
-    <script src="{% static 'carpool/js/map.js' %}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlOEo7PTE26ykaAVgT3qIjyPLS1DiZThU&libraries=places&callback=init" async defer></script>
+    <script src="{% static 'carpool/js/map_carpool.js' %}"></script>
+    {% include "./maps/carpool.html" %}
     <script src="{% static 'carpool/js/script.js' %}"></script>
 {% endblock %}
 
@@ -27,15 +27,14 @@
 
 {% block content %}
     <script>
-        var raw_users = {{json_users|safe}};
+        var raw_users = {{stops_json|safe}};
 
-        var dojo = "{{dojo_address}}";
-        var my_address = "{{my_address}}";
+        var dojo_address = "{{dojo_address}}";
+        var start_address = "{{start_address}}";
 
     </script>
 
     <div class="section map-wrap">
-        <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Box"> -->
         <div id="map"></div>
     </div>
 
@@ -67,8 +66,10 @@
                                 Driver
                             {% endif %}
                         </td>
+                        {% if user.id != request.session.user_id %}<td><a href="{% url 'wall:wall_create' id=user.id %}">Message!</a></td>{% endif %}
                     </tr>
                 {% endfor %}
+
                 {% if not user.carpool_id == carpool.id %}
                     <tr>
                         {% if count < car.seats %}
