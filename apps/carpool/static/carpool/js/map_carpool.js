@@ -23,6 +23,10 @@ for( var i = 0; i < raw_users.length; i++ ) {
 }
 
 function carpoolInit() {
+    if( !dests.length ) {
+        return;
+    }
+
     var directionsDisplay = new google.maps.DirectionsRenderer();
     var directionsService = new google.maps.DirectionsService();
     var dojo = new google.maps.LatLng(47.6104, -122.2007);

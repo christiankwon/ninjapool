@@ -1,7 +1,7 @@
 <script>
-    var raw_users = {{stops_json|safe}};
-    var dojo_address = "{{dojo_address}}";
-    var start_address = "{{start_address}}";
+    var raw_users = [{{stops_json|safe}}][0] || [];
+    var dojo_address = "{{dojo_address}}" || '';
+    var start_address = "{{start_address}}" || '';
 </script>
 
 {% if user.carpool_id > 0 %}

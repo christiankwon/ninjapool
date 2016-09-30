@@ -27,10 +27,10 @@
 
 {% block content %}
     <script>
-        var raw_users = {{json_users|safe}};
+        var raw_users = [{{json_users|safe}}][0] || [];
 
-        var dojo = "{{dojo_address}}";
-        var my_address = "{{my_address}}";
+        var dojo = "{{dojo_address}}" || '';
+        var my_address = "{{my_address}}" || '';
 
     </script>
 
