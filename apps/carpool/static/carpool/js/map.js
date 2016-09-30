@@ -20,7 +20,7 @@ for( var i = 0; i < raw_users.length; i++ ) {
         'html_element': $('#user_' + _[0])
     });
 
-    dests.push(full)
+    dests.push(full);
 }
 
 function showTable() {
@@ -47,8 +47,6 @@ function init() {
     };
 
     var distMatrixCB = function(response, status) {
-        var geocoder = new google.maps.Geocoder();
-
         var _cb = function(user) {
             return function(results, status) {
                 var marker = new google.maps.Marker({
@@ -63,6 +61,8 @@ function init() {
                 google.maps.event.addListener(marker, 'click', markerClick);
             }
         };
+
+        var geocoder = new google.maps.Geocoder();
 
         geocoder.geocode({'address': response.originAddresses[0]}, function(results, status) {
             map.setCenter(results[0].geometry.location);
@@ -91,11 +91,11 @@ function init() {
     }
 
     var distMatrix = new google.maps.DistanceMatrixService();
-        distMatrix.getDistanceMatrix({
-            origins: [my_address],
-            destinations: dests,
-            travelMode: 'DRIVING',
-            // drivingOptions: DrivingOptions,
-            unitSystem: google.maps.UnitSystem.IMPERIAL // METRIC,
-        }, distMatrixCB);
+    distMatrix.getDistanceMatrix({
+        'origins': [my_address],
+        'destinations': dests,
+        'travelMode': 'DRIVING',
+        // 'drivingOptions': DrivingOptions,
+        'unitSystem': google.maps.UnitSystem.IMPERIAL // METRIC,
+    }, distMatrixCB);
 }

@@ -8,11 +8,14 @@
 
 
 {% block styles %}
+    <link type="text/css" rel="stylesheet" href="{% static 'carpool/css/map.css' %}"  media="screen,projection">
     <link type="text/css" rel="stylesheet" href="{% static 'carpool/css/styles.css' %}"  media="screen,projection"/>
 {% endblock %}
 
 
 {% block scripts %}
+    <script src="{% static 'carpool/js/map_route.js' %}"></script>
+    {% include "./maps/route.html" %}
     <script src="{% static 'carpool/js/script.js' %}"></script>
 {% endblock %}
 
