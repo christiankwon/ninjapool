@@ -5,8 +5,9 @@ from ..wall.models import Wall
 
 # Create your models here.
 class CarpoolManager(models.Manager):
-    def new_carpool(self, data, user_id):
-        user = User.objects.get(id=user_id)
+    def new_carpool(self, data):
+        print data['user']
+        user = data['user']
 
         wall = Wall.objects.create()
         wall.users.add(user)
@@ -15,8 +16,6 @@ class CarpoolManager(models.Manager):
         data = {
             'num_passengers': data['seats'],
             'arrival_time': data['arrive'],
-            'leave_time': data['leave'],
-            'max_extra_distance': data['distance'],
             'driver': user,
             'wall': wall,
         }
@@ -26,10 +25,14 @@ class CarpoolManager(models.Manager):
         user.carpool_id = create.id
         user.save()
 
+        create.delete()
+
         return (True, create)
 
 
 class Carpool(models.Model):
+    num_passengers = models.IntegerField()
+    arrival_time = models.TimeField()
     driver = models.OneToOneField(User)
     wall = models.OneToOneField(Wall)
     created_at = models.DateTimeField(auto_now_add=True)

@@ -41,22 +41,35 @@ def add_car(request):
 
         if response[0]:
             messages.success(request, response[1])
-            return redirect(reverse('carpool:dashboard'))
+            try:
+                user = User.objects.get(id=user_id)
+                carpool = carpool.get(id=user.carpool_id)
+                return redirect(reverse('carpool:dashboard'))
+            except:
+                return redirect(reverse('carpool:new_carpool_router'))
 
         else:
             messages.error(request, response[1])
             return render(request, 'carpool/add_car.html')
-
     return render(request, 'carpool/add_car.html')
 
-def join(request):
-        return redirect(reverse('carpool:nearby'))
 
-def creator(request):
+def new_carpool(request):
     try:
         user = User.objects.get(id=request.session['user_id'])
         car = Car.objects.get(owner=user)
-        Carpool.objects.new_carpool(user, car)
-        return redirect(reverse('carpool:dashboard'))
+        return render(request, 'carpool/new_carpool.html')
     except: 
         return redirect(reverse('carpool:add_car'))
+
+
+def new_carpool_create(request):
+    user = User.objects.get(id=request.session['user_id'])
+    car = Car.objects.get(owner=user)
+    data = {'arrive':request.POST['arrive'], 'user':user, 'seats':car.seats}
+    models.Carpool.objects.new_carpool(data)
+    return redirect(reverse('carpool:dashboard'))
+
+
+def join(request):
+        return redirect(reverse('carpool:nearby'))

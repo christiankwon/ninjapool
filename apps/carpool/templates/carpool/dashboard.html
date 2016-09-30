@@ -57,12 +57,6 @@
 {% else %}
     {{car}}
     <a href="{% url 'carpool:join' %}" class="btn">Join a Carpool</a>
-    <a href="
-    {% if car %}
-        {% url 'carpool:create' %}
-    {% else %}
-        {% url 'carpool:add_car' %}
-    {% endif %}
-    " class="btn">Start a Carpool</a>
+    <a href="{% url 'carpool:new_carpool' %}" class="btn">Start a Carpool</a>
 
 {% endif %}

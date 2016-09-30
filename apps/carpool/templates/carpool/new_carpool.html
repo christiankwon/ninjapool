@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+    <title>Register | Carpool</title>
+{% endblock %}
+
+
+{% block styles %}
+    <link type="text/css" rel="stylesheet" href="{% static 'carpool/css/styles.css' %}"  media="screen,projection"/>
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="{% static 'carpool/js/script.js' %}"></script>
+{% endblock %}
+
+
+{% block header %}
+    {{block.super}}
+{% endblock %}
+
+
+{% block content %}
+	<div class="container">
+		<form action="{% url 'carpool:new_carpool_create' %}" method="post">
+		{% csrf_token %}
+			<p>My {{car.make}} {{car.model}} can take {{car.num_passengers}}.</p>
+			<input type="time" name="arrive">
+			<input class="btn" type="submit" value="Create">
+		</form>
+	</div>
+{% endblock %}
+
+
+{% block footer %}
+    {{block.super}}
+{% endblock %}
