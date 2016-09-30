@@ -24,6 +24,8 @@ class CarpoolManager(models.Manager):
         user.carpool_id = create.id
         user.save()
 
+        print create.id
+
         return (True, create)
 
     def leave_carpool(self, user_id):
@@ -40,6 +42,8 @@ class CarpoolManager(models.Manager):
         carpool = self.get(id=carpool_id)
         user.carpool_id=carpool_id
         user.save()
+
+        print carpool.id
 
         carpool.wall.users.add(user)
         wall.save()

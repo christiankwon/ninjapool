@@ -41,27 +41,47 @@
 
     <div class="section">
         <h4>Users</h4>
-        <table id="users_table">
+        <table>
             <thead>
                 <tr>
-                    <th>first_name</th>
-                    <th>last_name</th>
-                    <th>city</th>
-                    <th>zipcode</th>
+                    <th>First Name</th>
+                    <th>LastName</th>
+                    <th>City</th>
+                    <th>Zipcode</th>
+                    <th>Status</th>
                     <th>Message</th>
                 </tr>
             </thead>
 
             <tbody>
-                {% for user in all_users %}
-                    <tr id="user_{{user.0}}">
-                        <td>{{user.1}}</td>
-                        <td>{{user.2}}</td>
-                        <td>{{user.4}}</td>
-                        <td>{{user.6}}</td>
-                        <td><a href="{% url 'wall:wall_create' id=user.0 %}">Message</a></td>
+                {% for user in users %}
+                    <tr id="user_{{user.id}}">
+                        <td>{{user.first_name}}</td>
+                        <td>{{user.last_name}}</td>
+                        <td>{{user.city}}</td>
+                        <td>{{user.zipcode}}</td>
+                        <td>
+                            {% if carpool.driver != user %}
+                                Passenger
+                            {% else %}
+                                Driver
+                            {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
+                {% if not user.carpool_id == carpool.id %}
+                    <tr>
+                        {% if count < car.seats %}
+                            <td><a href="{% url 'carpool:join' %}"class='btn'>Join This Carpool</a></td>
+                        {% else %}
+                            <td><p>This carpool is currently full</p></td>
+                        {% endif %}
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td>This is your current Carpool!</td>
+                    </tr>
+                {% endif %}
             </tbody>
         </table>
     </div>
